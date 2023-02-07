@@ -26,6 +26,18 @@ CreateThread(function()
         heading=23,
         debugPoly = Config.Debug,
     },{ options = { { type = "client", event = "m-Forgery:Client:ForgeDriverLicense", icon = "fas fa-user-secret", label = Language.ForgeDriver, }, }, distance = 2.5 })
+
+    exports[Config.Target]:AddBoxZone("ForgeWeapon", Config.Locations.ForgeWeapon, 1.0, 1.0, {
+        name="ForgeWeapon",
+        heading=23,
+        debugPoly = Config.Debug,
+    },{ options = { { type = "client", event = "m-Forgery:Client:ForgeWeaponLicense", icon = "fas fa-user-secret", label = Language.ForgeWeapon, }, }, distance = 2.5 })
+
+    exports[Config.Target]:AddBoxZone("ForgeLawyer", Config.Locations.ForgeLawyer, 1.0, 1.0, {
+        name="ForgeLawyer",
+        heading=23,
+        debugPoly = Config.Debug,
+    },{ options = { { type = "client", event = "m-Forgery:Client:ForgeLawyer", icon = "fas fa-user-secret", label = Language.ForgeLawyer, }, }, distance = 2.5 })
 end)
 
 RegisterNetEvent('m-Forgery:Client:Notify')
@@ -131,6 +143,78 @@ RegisterNetEvent('m-Forgery:Client:ForgeDriverLicense', function()
         
         end, function()
             TriggerServerEvent("m-Forgery:Server:ForgeDriverLicense", firstname, lastname, birthday)
+            if Config.CallCops then
+                CallCops()
+            end
+        end)
+    end
+end)
+
+RegisterNetEvent('m-Forgery:Client:ForgeWeaponLicense', function()
+    local dialog = exports[Config.Input]:ShowInput({
+        header = "Forge a Weapon License",
+        submitText = "Forge a Weapon License",
+        inputs = {
+            { text = Language.FirstName, name = "firstname", type = "text", isRequired = true },
+            { text = Language.LastName, name = "lastname", type = "text", isRequired = true },
+            { text = Language.Birthday, name = "birthday", type = "text", isRequired = true },
+        },
+    })
+
+    if dialog then
+        local citizenid = tostring(QBCore.Shared.RandomStr(3) .. QBCore.Shared.RandomInt(5)):upper()
+        local firstname = (dialog['firstname'])
+        local lastname = (dialog['lastname'])
+        local birthday = (dialog['birthday'])
+
+        QBCore.Functions.Progressbar("ForgingID", Language.ForgingID, (Config.Times.ForgeWeapon*1000), false, false, {
+            disableMovement = true,
+            disableCarMovement = true,
+            disableMouse = false,
+            disableCombat = true,
+        },
+        { animDict = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", anim = "machinic_loop_mechandplayer", flags = 49,
+        }, {}, function()
+
+        end, function()
+            TriggerServerEvent("m-Forgery:Server:ForgeWeaponLicense", citizenid, firstname, lastname, birthday)
+            if Config.CallCops then
+                CallCops()
+            end
+        end)
+    end
+end)
+
+RegisterNetEvent('m-Forgery:Client:ForgeLawyer', function()
+    local dialog = exports[Config.Input]:ShowInput({
+        header = "Forge a Lawyer Pass",
+        submitText = "Forge a Lawyer Pass",
+        inputs = {
+            { text = Language.FirstName, name = "firstname", type = "text", isRequired = true },
+            { text = Language.LastName, name = "lastname", type = "text", isRequired = true },
+            { text = Language.Birthday, name = "birthday", type = "text", isRequired = true },
+            { text = Language.ID, name = "id", type = "text", isRequired = true },
+        },
+    })
+
+    if dialog then
+        local citizenid = tostring(QBCore.Shared.RandomStr(3) .. QBCore.Shared.RandomInt(5)):upper()
+        local firstname = (dialog['firstname'])
+        local lastname = (dialog['lastname'])
+        local birthday = (dialog['birthday'])
+        local id = (dialog['id'])
+
+        QBCore.Functions.Progressbar("ForgingID", Language.ForgingID, (Config.Times.ForgeLawyer*1000), false, false, {
+            disableMovement = true,
+            disableCarMovement = true,
+            disableMouse = false,
+            disableCombat = true,
+        },
+        { animDict = "anim@amb@clubhouse@tutorial@bkr_tut_ig3@", anim = "machinic_loop_mechandplayer", flags = 49,
+        }, {}, function()
+
+        end, function()
+            TriggerServerEvent("m-Forgery:Server:ForgeLawyer", citizenid, firstname, lastname, birthday, id)
             if Config.CallCops then
                 CallCops()
             end

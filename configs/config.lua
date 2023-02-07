@@ -14,6 +14,8 @@ Config.CallCops = true -- Call cops when forgery?
 Config.Times = {
 	ForgeID = 15, -- Time of progressbar
 	ForgeDriver = 15, -- Time of progressbar
+	ForgeWeapon = 15, -- Time of progressbar
+	ForgeLawyer = 1, -- Time of progressbar
 }
 
 Config.Locations = {
@@ -21,4 +23,6 @@ Config.Locations = {
 	ExitWarehouse = vector3(1174.0, -3196.63, -39.01), -- Location to exit warehouse
 	ForgeID = vector3(1169.52, -3196.85, -39.01), -- Location to forge a ID
 	ForgeDriver = vector3(1159.82, -3199.15, -39.01), -- Location to forge a Driver Licenses
+	ForgeWeapon = vector3(1168.32, -3195.56, -39.21), -- Location to forge a Weapon Licenses
+	ForgeLawyer = vector3(1169.34, -3199.64, -39.21), -- Location to forge a Lawyer Pass
 }

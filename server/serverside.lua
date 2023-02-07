@@ -17,7 +17,7 @@ RegisterServerEvent("m-Forgery:Server:ForgeID", function(citizenid, firstname, l
 
         Player.Functions.RemoveMoney(Config.Payment, Config.Amount)
     else
-        TriggerClientEvent('QBCore:Notify', src, Language.Money, 'error', 5000)
+        TriggerClientEvent('m-Forgery:Client:Notify', src, Language.Money, 'error', 5000)
     end
 end)
 
@@ -36,7 +36,46 @@ RegisterServerEvent("m-Forgery:Server:ForgeDriverLicense", function(firstname,la
 
         Player.Functions.RemoveMoney(Config.Payment, Config.Amount)
     else
-        TriggerClientEvent('QBCore:Notify', src, Language.Money, 'error', 5000)
+        TriggerClientEvent('m-Forgery:Client:Notify', src, Language.Money, 'error', 5000)
+    end
+end)
+
+RegisterServerEvent("m-Forgery:Server:ForgeWeaponLicense", function(firstname,lastname,birthday)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    if Player.PlayerData.money.cash >= Config.Amount then
+        info = {}
+        info.citizenid = citizenid
+        info.firstname = firstname
+        info.lastname = lastname
+        info.birthdate = birthday
+
+        TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["weaponlicense"], 'add')
+        Player.Functions.AddItem("weaponlicense", 1, nil, info)
+
+        Player.Functions.RemoveMoney(Config.Payment, Config.Amount)
+    else
+        TriggerClientEvent('m-Forgery:Client:Notify', src, Language.Money, 'error', 5000)
+    end
+end)
+
+RegisterServerEvent("m-Forgery:Server:ForgeLawyer", function(firstname,lastname,birthday, citizenid, id)
+    local src = source
+    local Player = QBCore.Functions.GetPlayer(src)
+    if Player.PlayerData.money.cash >= Config.Amount then
+        info = {}
+        info.citizenid = citizenid
+        info.firstname = firstname
+        info.lastname = lastname
+        info.birthdate = birthday
+        info.id = id
+
+        TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items["lawyerpass"], 'add')
+        Player.Functions.AddItem("lawyerpass", 1, nil, info)
+
+        Player.Functions.RemoveMoney(Config.Payment, Config.Amount)
+    else
+        TriggerClientEvent('m-Forgery:Client:Notify', src, Language.Money, 'error', 5000)
     end
 end)
 
