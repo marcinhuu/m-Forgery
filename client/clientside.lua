@@ -1,7 +1,7 @@
 local QBCore = exports[Config.Core]:GetCoreObject()
 
 CreateThread(function()
-    exports['qb-target']:AddBoxZone("EnterWarehouse", Config.Locations.EnterWarehouse, 0.2, 1.0, {
+    exports[Config.Target]:AddBoxZone("EnterWarehouse", Config.Locations.EnterWarehouse, 0.2, 1.0, {
         name="ForgeryEnter",
         heading=315,
         debugPoly = Config.Debug,
@@ -9,19 +9,19 @@ CreateThread(function()
         maxZ=33.07,
     },{ options = { { type = "client", event = "m-Forgery:Client:EnterWarehouse", icon = "fas fa-user-secret", label = Language.Enter, }, }, distance = 2.5 })
     
-    exports['qb-target']:AddBoxZone("ExitWarehouse", Config.Locations.ExitWarehouse, 0.2, 1.0, {
+    exports[Config.Target]:AddBoxZone("ExitWarehouse", Config.Locations.ExitWarehouse, 0.2, 1.0, {
         name="ForgeryLeave",
         heading=89,
         debugPoly = Config.Debug,
     },{ options = { { type = "client", event = "qb-forgery:client:leave", icon = "fas fa-user-secret", label = Language.Leave, }, }, distance = 2.5 })
 
-    exports['qb-target']:AddBoxZone("ForgeID", Config.Locations.ForgeID, 0.4, 0.5, {
+    exports[Config.Target]:AddBoxZone("ForgeID", Config.Locations.ForgeID, 0.4, 0.5, {
         name="ForgeID", 
         heading=290, 
         debugPoly = Config.Debug,
     },{ options = { { type = "client", event = "m-Forgery:Client:ForgeID", icon = "fas fa-user-secret", label = Language.ForgeID, }, }, distance = 2.5 })
 
-    exports['qb-target']:AddBoxZone("ForgeDriver", Config.Locations.ForgeDriver, 0.6, 0.6, {
+    exports[Config.Target]:AddBoxZone("ForgeDriver", Config.Locations.ForgeDriver, 0.6, 0.6, {
         name="ForgeDrivers",
         heading=23,
         debugPoly = Config.Debug,
@@ -45,13 +45,13 @@ RegisterNetEvent('m-Forgery:Client:EnterWarehouse', function()
                 SetEntityCoords(Ply, 1174.0, -3196.63, -39.01)
                 DoScreenFadeIn(1000)
             else
-                Notify("You dont have the right item to enter!", "error", 5000)
+                Notify(Language.RightItem, "error", 5000)
             end
         end)
     else
         DoScreenFadeOut(1000)
         Wait(1500)
-        SetEntityCoords(Ply, 1174.0, -3196.63, -39.01)
+        SetEntityCoords(Ply, Config.Locations.ExitWarehouse)
         DoScreenFadeIn(1000)
     end
 end)

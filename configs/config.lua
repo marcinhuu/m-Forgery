@@ -1,6 +1,7 @@
 Config = {}
 
 Config.Core = "qb-core" -- Your qb-core folder name
+Config.Target = "qb-target" -- Your qb-target folder name
 Config.Payment = "cash" -- "cash" or "bank" 
 Config.Notify = "QBCore" -- "QBCore" | "okok" | "mythic"
 Config.Amount = 25000 -- Amount of money pay for documents

@@ -14,4 +14,5 @@ Language = {
 	Dead = "You cannot enter while you are dead.",
 	Car = "You cannot enter while in a vehicle.",
 	Money = "You dont have enough money.",
+	RightItem = "You dont have the right item to enter!",
 }
