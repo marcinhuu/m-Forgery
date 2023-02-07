@@ -13,7 +13,7 @@ CreateThread(function()
         name="ForgeryLeave",
         heading=89,
         debugPoly = Config.Debug,
-    },{ options = { { type = "client", event = "qb-forgery:client:leave", icon = "fas fa-user-secret", label = Language.Leave, }, }, distance = 2.5 })
+    },{ options = { { type = "client", event = "m-Forgery:Client:ExitWarehouse", icon = "fas fa-user-secret", label = Language.Leave, }, }, distance = 2.5 })
 
     exports[Config.Target]:AddBoxZone("ForgeID", Config.Locations.ForgeID, 0.4, 0.5, {
         name="ForgeID", 
@@ -25,7 +25,7 @@ CreateThread(function()
         name="ForgeDrivers",
         heading=23,
         debugPoly = Config.Debug,
-    },{ options = { { type = "client", event = "qb-forgery:client:ForgeDrivers", icon = "fas fa-user-secret", label = Language.ForgeDriver, }, }, distance = 2.5 })
+    },{ options = { { type = "client", event = "m-Forgery:Client:ForgeDriverLicense", icon = "fas fa-user-secret", label = Language.ForgeDriver, }, }, distance = 2.5 })
 end)
 
 RegisterNetEvent('m-Forgery:Client:Notify')
@@ -56,7 +56,7 @@ RegisterNetEvent('m-Forgery:Client:EnterWarehouse', function()
     end
 end)
 
-RegisterNetEvent('qb-forgery:client:leave', function()
+RegisterNetEvent('m-Forgery:Client:ExitWarehouse', function()
     local Ply = PlayerPedId()
     if IsEntityDead(Ply) then return Notify(Language.Dead, "error", 5000) end
     if IsPedInAnyVehicle(Ply, false) then return Notify(Language.Car, "error", 5000) end
@@ -67,7 +67,7 @@ RegisterNetEvent('qb-forgery:client:leave', function()
 end)
 
 RegisterNetEvent('m-Forgery:Client:ForgeID', function()
-    local dialog = exports['qb-input']:ShowInput({
+    local dialog = exports[Config.Input]:ShowInput({
         header = "Forge an ID",
         submitText = "Forge ID",
         inputs = {
@@ -103,8 +103,8 @@ RegisterNetEvent('m-Forgery:Client:ForgeID', function()
     end
 end)
 
-RegisterNetEvent('qb-forgery:client:ForgeDrivers', function()
-    local dialog = exports['qb-input']:ShowInput({
+RegisterNetEvent('m-Forgery:Client:ForgeDriverLicense', function()
+    local dialog = exports[Config.Input]:ShowInput({
         header = "Forge a Drivers License",
         submitText = "Forge License",
         inputs = {
